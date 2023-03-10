@@ -24,7 +24,7 @@ logstashPipeline:
     }
     output {
       elasticsearch {
-        hosts => [ "elasticsearch-master:9200" ]
+        hosts => [ "https://elasticsearch-master:9200" ]
         index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
         user => "elastic"
         password => "fNXMByE4aVpltvXA"
