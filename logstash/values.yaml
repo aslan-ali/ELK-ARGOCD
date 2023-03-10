@@ -28,6 +28,7 @@ logstashPipeline:
         index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
         user => "elastic"
         password => "fNXMByE4aVpltvXA"
+        ssl_certificate_verification => false
       }
     }
 
