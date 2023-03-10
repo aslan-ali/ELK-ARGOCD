@@ -16,14 +16,16 @@ logstashConfig:
 logstashPipeline:
   logstash.conf: |
     input {
-      udp {
+      beats {
         port => 5044
-          codec => json
       }
+    }
+    filter {
     }
     output {
       elasticsearch {
-        hosts => "http://elasticsearch-master:9200"
+        hosts => [ "elasticsearch-master:9200" ]
+        index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
         user => "elastic"
         password => "fNXMByE4aVpltvXA"
       }
