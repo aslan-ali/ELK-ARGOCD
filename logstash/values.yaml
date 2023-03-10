@@ -97,7 +97,7 @@ volumeClaimTemplate:
       storage: 1Gi
 
 rbac:
-  create: false
+  create: true
   serviceAccountAnnotations: {}
   serviceAccountName: ""
   annotations:
@@ -125,7 +125,7 @@ podSecurityPolicy:
       - persistentVolumeClaim
 
 persistence:
-  enabled: false
+  enabled: true
   annotations: {}
 
 extraVolumes:
