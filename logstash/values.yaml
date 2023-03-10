@@ -6,24 +6,32 @@ replicas: 1
 #
 # Note that when overriding logstash.yml, `http.host: 0.0.0.0` should always be included
 # to make default probes work.
-logstashConfig: {}
-#  logstash.yml: |
-#    key:
-#      nestedkey: value
-#  log4j2.properties: |
-#    key = value
+logstashConfig:
+  logstash.yml: |
+    http.host: 0.0.0.0
+    xpack.monitoring.enabled: false
+    key:
+      nestedkey: value
+  log4j2.properties: |
+    key = value
 
 # Allows you to add any pipeline files in /usr/share/logstash/pipeline/
 ### ***warn*** there is a hardcoded logstash.conf in the image, override it first
-logstashPipeline: {}
-#  logstash.conf: |
-#    input {
-#      exec {
-#        command => "uptime"
-#        interval => 30
-#      }
-#    }
-#    output { stdout { } }
+logstashPipeline:
+  logstash.conf: |
+    input {
+      udp {
+        port => 5044
+          codec => json
+      }
+    }
+    output {
+      elasticsearch {
+        hosts => "http://elasticsearch-master:9200"
+        user => "elastic"
+        password => "fNXMByE4aVpltvXA"
+      }
+    }
 
 # Allows you to add any pattern files in your custom pattern dir
 logstashPatternDir: "/usr/share/logstash/patterns/"
