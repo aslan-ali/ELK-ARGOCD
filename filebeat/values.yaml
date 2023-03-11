@@ -47,12 +47,7 @@ daemonset:
                 logs_path: "/var/log/containers/"
 
       output.elasticsearch:
-        host: '${NODE_NAME}'
-        hosts: '["https://${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}"]'
-        username: '${ELASTICSEARCH_USERNAME}'
-        password: '${ELASTICSEARCH_PASSWORD}'
-        protocol: https
-        ssl.certificate_authorities: ["/usr/share/filebeat/certs/ca.crt"]
+        hosts: ["logstash-logstash:5044"]
   # Only used when updateStrategy is set to "RollingUpdate"
   maxUnavailable: 1
   nodeSelector: {}
@@ -74,11 +69,11 @@ daemonset:
     privileged: false
   resources:
     requests:
-      cpu: "100m"
-      memory: "100Mi"
+      cpu: "300m"
+      memory: "1300Mi"
     limits:
       cpu: "1000m"
-      memory: "200Mi"
+      memory: "500Mi"
   tolerations: []
 
 deployment:
