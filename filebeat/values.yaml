@@ -70,7 +70,7 @@ daemonset:
   resources:
     requests:
       cpu: "300m"
-      memory: "1300Mi"
+      memory: "300Mi"
     limits:
       cpu: "1000m"
       memory: "500Mi"
