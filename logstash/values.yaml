@@ -26,8 +26,8 @@ logstashPipeline:
       elasticsearch {
         hosts => [ "https://elasticsearch-master:9200" ]
         index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
-        user => "elastic"
-        password => "Wuj9r13suJPNL16Q"
+        user => '${ELASTIC_USER}'
+        password => '${ELASTIC_PASSWD}'
         ssl_certificate_verification => false
       }
     }
@@ -41,10 +41,17 @@ logstashPattern: {}
 # Extra environment variables to append to this nodeGroup
 # This will be appended to the current 'env:' key. You can use any of the kubernetes env
 # syntax here
-extraEnvs: []
-#  - name: MY_ENVIRONMENT_VAR
-#    value: the_value_goes_here
-
+extraEnvs:
+  - name: 'ELASTIC_USER'
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-master-credentials
+        key: username
+  - name: 'ELASTIC_PASSWD'
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-master-credentials
+        key: password
 # Allows you to load environment variables from kubernetes secret or config map
 envFrom: []
 # - secretRef:
